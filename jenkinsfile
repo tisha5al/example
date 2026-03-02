@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('fetch file') {
+            steps {
+             git' https://github.com/tisha5al/example.git'
+            }
+        }
+         stage('building') {
+            steps {
+                echo 'building project...'
+                bat'javac hello.java'
+            }
+    }
+     stage('execution') {
+            steps {
+                echo 'execution program..'
+                bat 'java hello'
+            }
+}
+ stage('deploy') {
+            steps {
+                echo 'deploying..'
+            }
+ }
+    }
+    post{
+        success{
+            echo 'pipeline executed successfully'
+        }
+        failure{
+            echo 'pipeline failed'
+        }
+    }
+}
+
